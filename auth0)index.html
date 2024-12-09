@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.auth0.com/js/auth0/9.19.0/auth0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GitHub Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        a {
+            color: #007acc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My GitHub Website</h1>
+    <p>This is a simple webpage hosted on GitHub Pages.</p>
+    <p>Click <a href="https://github.com">here</a> to visit GitHub.</p>
+    <script>
+        const auth0 = new auth0.WebAuth({
+          domain: "gotoyuta11-v01.jp.auth0.com",
+          clientID: "YRSD7bFTBMmYqkKnGXAXWE3iiP2Rh3Wg",
+          redirectUri: window.location.origin,
+          responseType: "token id_token",
+          scope: "openid profile email"
+        });
+      
+        // ページロード時にログインチェック
+        window.onload = function () {
+          auth0.parseHash((err, authResult) => {
+            if (authResult && authResult.accessToken && authResult.idToken) {
+              console.log("ログイン成功");
+            } else {
+              console.log("ログインしていません");
+              auth0.authorize(); // ログインページにリダイレクト
+            }
+          });
+        };
+      </script>      
+</body>
+</html>
